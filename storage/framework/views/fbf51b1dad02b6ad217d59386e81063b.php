@@ -1,26 +1,34 @@
-<x-app-layout title="Products">
+<?php if (isset($component)) { $__componentOriginal9ac128a9029c0e4701924bd2d73d7f54 = $component; } ?>
+<?php $component = App\View\Components\AppLayout::resolve(['title' => 'Products'] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component->withName('app-layout'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(App\View\Components\AppLayout::class))->getConstructor()): ?>
+<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
     <div class="container grid px-6 mx-auto">
-        @if ($errors->any())
+        <?php if($errors->any()): ?>
             <div class="bg-red-300 px-4 py-2 rounded-md mt-8 text-red-600">
                 <ul>
-                    @foreach ($errors->all() as $error)
-                        <li class="list-disc list-inside">{{ $error }}</li>
-                    @endforeach
+                    <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <li class="list-disc list-inside"><?php echo e($error); ?></li>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </ul>
             </div>
-        @endif
+        <?php endif; ?>
 
-        @if (session('success'))
+        <?php if(session('success')): ?>
             <div class="bg-green-300 px-4 py-2 rounded-md mt-8 text-green-600">
-                <div class="list-disc list-inside">{{ session('success') }}</div>
+                <div class="list-disc list-inside"><?php echo e(session('success')); ?></div>
             </div>
-        @endif
+        <?php endif; ?>
 
-        @if (session('error'))
+        <?php if(session('error')): ?>
             <div class="bg-red-300 px-4 py-2 rounded-md mt-8 text-red-600">
-                <div class="list-disc list-inside">{{ session('error') }}</div>
+                <div class="list-disc list-inside"><?php echo e(session('error')); ?></div>
             </div>
-        @endif
+        <?php endif; ?>
 
         <div class="flex w-full justify-between items-center">
             <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200 underline ">
@@ -55,35 +63,39 @@
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                        @foreach ($products as $key => $product)
-                            <tr class="text-gray-700 dark:text-gray-400" id="product-{{ $product->id }}">
+                        <?php $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <tr class="text-gray-700 dark:text-gray-400" id="product-<?php echo e($product->id); ?>">
                                 <td class="px-4 py-3 text-sm">
-                                    {{ $key + 1 }}
+                                    <?php echo e($key + 1); ?>
+
                                 </td>
                                 <td class="px-4 py-3">
                                     <div class="flex items-center text-sm">
                                         <div>
-                                            <p class="font-semibold">{{ $product->name }}</p>
+                                            <p class="font-semibold"><?php echo e($product->name); ?></p>
                                             <p class="text-xs text-gray-600 dark:text-gray-400">
                                                 10x Sell
                                             </p>
                                             <p class="text-xs text-gray-600 dark:text-gray-400">
-                                                {{ $product->product_category->category_name }}
+                                                <?php echo e($product->product_category->category_name); ?>
+
                                             </p>
                                         </div>
                                     </div>
                                 </td>
                                 <td class="px-4 py-3 text-sm">
-                                    {{ 'Rp ' . number_format($product->price, 2, ',', '.') }}
+                                    <?php echo e('Rp ' . number_format($product->price, 2, ',', '.')); ?>
+
                                 </td>
                                 <td class="px-4 py-3 text-sm">
-                                    {{ $product->quantity . ' unit' }}
+                                    <?php echo e($product->quantity . ' unit'); ?>
+
                                 </td>
                                 <td class="px-4 py-3 text-sm">
                                     <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
                                         <img class="object-cover w-full h-full rounded-full"
-                                            src="{{ Str::startsWith($product->picture_path, 'https://') ? $product->picture_path : asset('storage/' . $product->picture_path) }}"
-                                            alt="{{ $product->name }}" alt="" loading="lazy" />
+                                            src="<?php echo e(Str::startsWith($product->picture_path, 'https://') ? $product->picture_path : asset('storage/' . $product->picture_path)); ?>"
+                                            alt="<?php echo e($product->name); ?>" alt="" loading="lazy" />
                                         <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true">
                                         </div>
                                     </div>
@@ -91,24 +103,27 @@
                                 <td class="px-4 py-3 text-xs">
                                     <span
                                         class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
-                                        {{ $product->spesification }}
+                                        <?php echo e($product->spesification); ?>
+
                                     </span>
                                 </td>
                                 <td class="px-4 py-3 text-sm">
                                     <summary>
                                         <details>
                                             <div class="whitespace-pre-line">
-                                                {{ $product->description }}
+                                                <?php echo e($product->description); ?>
+
                                             </div>
                                         </details>
                                     </summary>
                                 </td>
                                 <td class="px-4 py-3 text-sm">
-                                    {{ $product->created_at }}
+                                    <?php echo e($product->created_at); ?>
+
                                 </td>
                                 <td class="px-4 py-3">
                                     <div class="flex items-center space-x-4 text-sm">
-                                        <button @click="openModal" onclick="showModalEdit({{ $product->id }})"
+                                        <button @click="openModal" onclick="showModalEdit(<?php echo e($product->id); ?>)"
                                             class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                             aria-label="Edit">
                                             <svg class="w-5 h-5" aria-hidden="true" fill="currentColor"
@@ -118,7 +133,7 @@
                                                 </path>
                                             </svg>
                                         </button>
-                                        <button onclick="showToast({{ $product->id }})"
+                                        <button onclick="showToast(<?php echo e($product->id); ?>)"
                                             class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                             aria-label="Delete">
                                             <svg class="w-5 h-5" aria-hidden="true" fill="currentColor"
@@ -131,7 +146,7 @@
                                     </div>
                                 </td>
                             </tr>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </tbody>
                 </table>
             </div>
@@ -239,9 +254,9 @@
                 <p class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-300">
                     Add product
                 </p>
-                <form id="product-add-form" action="{{ route('product.store') }}" method="POST"
+                <form id="product-add-form" action="<?php echo e(route('product.store')); ?>" method="POST"
                     enctype="multipart/form-data" class="my-8 flex flex-col gap-3">
-                    @csrf
+                    <?php echo csrf_field(); ?>
                     <input id="_method" type="hidden" name="_method" value="POST">
                     <label class="block text-sm">
                         <span class="text-gray-700 dark:text-gray-400">Name</span>
@@ -302,7 +317,13 @@
         </div>
     </div>
 
-    @push('scripts')
-        <script src="{{ asset('js/product.js') }}"></script>
-    @endpush
-</x-app-layout>
+    <?php $__env->startPush('scripts'); ?>
+        <script src="<?php echo e(asset('js/product.js')); ?>"></script>
+    <?php $__env->stopPush(); ?>
+ <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal9ac128a9029c0e4701924bd2d73d7f54)): ?>
+<?php $component = $__componentOriginal9ac128a9029c0e4701924bd2d73d7f54; ?>
+<?php unset($__componentOriginal9ac128a9029c0e4701924bd2d73d7f54); ?>
+<?php endif; ?>
+<?php /**PATH /Users/macbook/Documents/Development/toko-elektronik/resources/views/admin/products.blade.php ENDPATH**/ ?>
