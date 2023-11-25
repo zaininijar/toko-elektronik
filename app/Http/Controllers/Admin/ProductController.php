@@ -93,11 +93,7 @@ class ProductController extends Controller
                 $picturePath = substr($picturePath, strlen('public/'));
                 $product->picture_path = $picturePath;
             }
-
-            if (!isset($picturePath)) {
-                return redirect()->back()->with('error', 'File upload failed.');
-            }
-
+          
             $requestData = $request->all();
 
             $product->name = $requestData['name'];
