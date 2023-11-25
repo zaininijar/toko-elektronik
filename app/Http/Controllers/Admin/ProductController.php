@@ -57,7 +57,7 @@ class ProductController extends Controller
 
             Product::create($requestData);
 
-            return redirect()->route('product.index')->with('success', 'Product created successfully created');
+            return redirect()->route('product.index')->with('success', 'Product successfully created');
 
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
@@ -75,17 +75,44 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Product $product)
     {
-        //
+        return response()->json($product, 200);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Product $product)
     {
-        //
+
+        try {
+
+            if ($request->hasFile('picture_path')) {
+                $picturePath = $request->file('picture_path')->store('public/images/products');
+                $picturePath = substr($picturePath, strlen('public/'));
+                $product->picture_path = $picturePath;
+            }
+
+            if (!isset($picturePath)) {
+                return redirect()->back()->with('error', 'File upload failed.');
+            }
+
+            $requestData = $request->all();
+
+            $product->name = $requestData['name'];
+            $product->price = $requestData['price'];
+            $product->quantity = $requestData['quantity'];
+            $product->spesification = $requestData['spesification'];
+            $product->description = $requestData['description'];
+
+            $product->save();
+
+            return redirect()->route('product.index')->with('success', 'Product successfully updated');
+
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', $th->getMessage());
+        }
     }
 
     /**
