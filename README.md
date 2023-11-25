@@ -1,4 +1,4 @@
-# toko-elektronik - Laravel 10.0+ Jetstream and Tailwind CSS Admin Theme
+# toko-elektronik - Laravel 10.0+ Jetstream and Tailwind CSS
 
 This project is created with [Laravel Jetstream](https://jetstream.laravel.com/1.x/introduction.html) Framework and [Tailwind CSS](https://tailwindcss.com)
 

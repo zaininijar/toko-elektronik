@@ -93,7 +93,7 @@ class ProductController extends Controller
                 $picturePath = substr($picturePath, strlen('public/'));
                 $product->picture_path = $picturePath;
             }
-
+          
             $requestData = $request->all();
 
             $product->name = $requestData['name'];
