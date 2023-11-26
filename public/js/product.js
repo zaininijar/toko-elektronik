@@ -140,3 +140,4 @@ function showToast(id) {
 function productStore() {
     form.submit();
 }
+

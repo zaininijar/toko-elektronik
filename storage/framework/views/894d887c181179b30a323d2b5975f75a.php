@@ -13,27 +13,25 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
         rel="stylesheet" />
 
+    <!-- Turbolinks -->
+    <script defer src="<?php echo e(mix('js/app.js')); ?>"></script>
+
     <!-- Styles -->
-    <link rel="stylesheet" href="<?php echo e(mix('css/app.css')); ?>">
-    <link rel="stylesheet" href="<?php echo e(asset('css/tailwind.output.css')); ?>" />
-    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-    <script src="<?php echo e(asset('js/init-alpine.js')); ?>" defer></script>
+    <link rel="stylesheet" href="<?php echo e(mix('css/app.css')); ?>" data-turbolinks-track="true" />
+    <link rel="stylesheet" href="<?php echo e(asset('css/tailwind.output.css')); ?>" data-turbolinks-track="true" />
+    <script defer src="<?php echo e(asset('js/init-alpine.js')); ?>" data-turbolinks-track="true"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" defer></script>
-    <script src="<?php echo e(asset('js/charts-lines.js')); ?>" defer></script>
+    <!-- <script src="<?php echo e(asset('js/charts-lines.js')); ?>" defer></script>
     <script src="<?php echo e(asset('js/charts-pie.js')); ?>" defer></script>
-    <script src="<?php echo e(asset('js/charts-bars.js')); ?>" defer></script>
-    <link href="<?php echo e(asset('plugin/izi-toast/css/iziToast.css')); ?>" rel="stylesheet">
-    <script src="<?php echo e(asset('plugin/izi-toast/js/iziToast.js')); ?>"></script>
-    <script src="<?php echo e(asset('plugin/jquery/jquery.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/charts-bars.js')); ?>" defer></script> -->
+    <link href="<?php echo e(asset('plugin/izi-toast/css/iziToast.css')); ?>" rel="stylesheet" data-turbolinks-track="true" />
+    <script defer src="<?php echo e(asset('plugin/izi-toast/js/iziToast.js')); ?>" data-turbolinks-track="true"></script>
+    <script defer src="<?php echo e(asset('plugin/jquery/jquery.js')); ?>" data-turbolinks-track="true"></script>
 
     <?php echo \Livewire\Livewire::styles(); ?>
 
-    <script>
-    import Turbolinks from 'turbolinks';
-    Turbolinks.start()
-    </script>
 
     <!-- Scripts -->
     
