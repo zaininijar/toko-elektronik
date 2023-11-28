@@ -7,17 +7,14 @@
             About
         </a>
 
-        <p class="mt-8 mb-8">This template is inspired by the stunning nordic minimalist design - in
-            particular:
-            <br>
-            <a class="text-gray-800 underline hover:text-gray-900" href="http://savoy.nordicmade.com/"
-                target="_blank">Savoy Theme</a> created by <a class="text-gray-800 underline hover:text-gray-900"
-                href="https://nordicmade.com/">https://nordicmade.com/</a> and <a
-                class="text-gray-800 underline hover:text-gray-900" href="https://www.metricdesign.no/"
-                target="_blank">https://www.metricdesign.no/</a>
+        <p class="mt-8 mb-8">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius doloribus dolore, quod autem, incidunt odit
+            maiores dicta laboriosam voluptatem excepturi praesentium iste reprehenderit eaque quibusdam nesciunt
+            provident rem beatae id?
         </p>
 
-        <p class="mb-8">Lorem ipsum dolor sit amet, consectetur <a href="#">random link</a> adipiscing
+        <p class="mb-8">
+            Lorem ipsum dolor sit amet, consectetur <a href="#">random link</a> adipiscing
             elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Vel risus commodo viverra maecenas
             accumsan
@@ -31,7 +28,8 @@
             egestas
             dui id. At tempor commodo ullamcorper a. Volutpat commodo sed egestas egestas fringilla. Vitae
             congue eu
-            consequat ac.</p>
+            consequat ac.
+        </p>
 
     </div>
 

@@ -6,11 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
-    <title><?php echo e(config('app.name')); ?></title>
-    <meta name="description" content="<?php echo e(config('app.name')); ?>">
+    <title><?php echo e($title); ?></title>
+    <meta name="description" content="<?php echo e($title); ?>">
     <meta name="keywords" content="Best site to find electronics product.">
 
     <!-- tailwind css -->
+    <script defer src="<?php echo e(mix('js/app.js')); ?>"></script>
     <link rel="stylesheet" href="<?php echo e(mix('css/app.css')); ?>">
     <link rel="stylesheet" href="<?php echo e(asset('css/tailwind.output.css')); ?>" />
     <!-- alpinejs -->
@@ -20,7 +21,6 @@
     <script defer src="<?php echo e(asset('plugin/izi-toast/js/iziToast.js')); ?>" data-turbolinks-track="true"></script>
     <!-- jQuery -->
     <script defer src="<?php echo e(asset('plugin/jquery/jquery.js')); ?>" data-turbolinks-track="true"></script>
-
     <link href="https://fonts.googleapis.com/css?family=Work+Sans:200,400&display=swap" rel="stylesheet">
 
     <style>
@@ -101,4 +101,5 @@
     <?php echo $__env->yieldPushContent('scripts'); ?>
 </body>
 
-</html><?php /**PATH /Users/macbook/Documents/Development/toko-elektronik/resources/views/layouts/customer.blade.php ENDPATH**/ ?>
+</html>
+<?php /**PATH /Users/macbook/Documents/Development/toko-elektronik/resources/views/layouts/customer.blade.php ENDPATH**/ ?>

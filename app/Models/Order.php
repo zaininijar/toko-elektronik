@@ -5,31 +5,30 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class Order extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'product_category_id',
-        'name',
-        'price',
-        'quantity',
-        'picture_path',
-        'spesification',
-        'description'
+        'user_id',
+        'payment_id',
+        'recipient_name',
+        'phone_number',
+        'shipped_address',
+        'shipped_cost'
     ];
 
     /**
-     * Get the product_category that owns the Product
+     * Get the user that owns the Order
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function product_category()
+    public function user()
     {
-        return $this->belongsTo(ProductCategory::class);
+        return $this->belongsTo(User::class);
     }
 
     /**
-     * Get all of the order_products for the Product
+     * Get all of the order_products for the Order
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -37,4 +36,5 @@ class Product extends Model
     {
         return $this->hasMany(OrderProduct::class);
     }
+
 }

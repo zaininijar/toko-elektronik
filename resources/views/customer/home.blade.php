@@ -7,7 +7,7 @@
                     aria-hidden="true" hidden="" checked="checked">
                 <div class="carousel-item absolute opacity-0 " style="height:50vh;">
                     <div class="h-full w-full mx-auto flex  pt-6 md:pt-0 md:items-center bg-cover bg-right"
-                        style="background-image: url('{{ $slide['picture_path'] }}');">
+                        style="background-image: url({{ $slide['picture_path'] }})">
                         <div class="container mx-auto">
                             <div class="flex flex-col w-8/12 mx-auto items-center px-6 tracking-wide py-4"
                                 style="background-color: rgba(0, 0, 0, 0.8)">
@@ -44,7 +44,7 @@
 
                     <a class="uppercase tracking-wide no-underline hover:no-underline font-bold text-gray-800 text-xl "
                         href="#">
-                        Store
+                        Poppular Products
                     </a>
 
                     <div class="flex items-center" id="store-nav-content">
@@ -70,7 +70,7 @@
 
             @foreach ($products as $product)
                 <div class="w-1/2 md:w-1/3 xl:w-1/4 p-6 flex flex-col">
-                    <a href="#">
+                    <a href="{{ route('customer.product.show', $product->id) }}">
                         <div class="w-full overflow-hidden hover:grow hover:shadow-lg relative"
                             style="aspect-ratio: 1 / 1;">
                             <div class="bg-black text-white ml-auto px-4 py-2 absolute text-xs md:text-base">

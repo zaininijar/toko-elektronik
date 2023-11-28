@@ -6,11 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name') }}</title>
-    <meta name="description" content="{{ config('app.name') }}">
+    <title>{{ $title }}</title>
+    <meta name="description" content="{{ $title }}">
     <meta name="keywords" content="Best site to find electronics product.">
 
     <!-- tailwind css -->
+    <script defer src="{{ mix('js/app.js') }}"></script>
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/tailwind.output.css') }}" />
     <!-- alpinejs -->
@@ -20,7 +21,6 @@
     <script defer src="{{ asset('plugin/izi-toast/js/iziToast.js') }}" data-turbolinks-track="true"></script>
     <!-- jQuery -->
     <script defer src="{{ asset('plugin/jquery/jquery.js') }}" data-turbolinks-track="true"></script>
-
     <link href="https://fonts.googleapis.com/css?family=Work+Sans:200,400&display=swap" rel="stylesheet">
 
     <style>
