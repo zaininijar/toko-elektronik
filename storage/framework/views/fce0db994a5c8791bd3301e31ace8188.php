@@ -9,6 +9,32 @@
 <?php $component->withAttributes([]); ?>
 
     <div x-data="{ open: false, openModalShoppingChart: false }">
+        <?php if(session('success')): ?>
+        <div class="container pb-12 mx-auto  mt-8" x-data="{ openBanner: true }"
+            x-init="() => setTimeout(() => openBanner = true, 500)">
+            <div x-show="openBanner" x-transition:enter-start="opacity-0 scale-90"
+                x-transition:enter="transition duration-200 transform ease"
+                x-transition:leave="transition duration-200 transform ease" x-transition:leave-end="opacity-0 scale-90"
+                class="w-full mx-auto border bg-white inset-x-5 p-5 bottom-40 drop-shadow-2xl flex gap-4 text-left items-center justify-between">
+                <div class="w-full"><?php echo e(session('success')); ?>
+
+                    <a href="<?php echo e(route('customer.order')); ?>"
+                        class="text-indigo-600 whitespace-nowrap  hover:underline">Cek Pesanan</a>
+                </div>
+                <div class="flex gap-4 items-center flex-shrink-0">
+                    <button @click="openBanner = false, setTimeout(() => openBanner = true, 1500)"
+                        class="focus:outline-none hover:underline text-black">
+                        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path
+                                d="M12.0007 10.5865L16.9504 5.63672L18.3646 7.05093L13.4149 12.0007L18.3646 16.9504L16.9504 18.3646L12.0007 13.4149L7.05093 18.3646L5.63672 16.9504L10.5865 12.0007L5.63672 7.05093L7.05093 5.63672L12.0007 10.5865Z"
+                                fill="currentColor"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <?php endif; ?>
+
         <section class="text-gray-700 body-font overflow-hidden bg-white">
             <div class="container px-5 py-24 mx-auto border">
                 <div class="md:w-4/5 mx-auto flex flex-wrap">
@@ -218,15 +244,13 @@
                             <div class="px-3 md:w-7/12 lg:pr-10 flex flex-col justify-between min-h-full">
                                 <div class="w-full mx-auto text-gray-800 font-light mb-6 border-b border-gray-200 pb-6">
 
-                                    <?php $__currentLoopData = [0,1,2]; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pr): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <div class="w-full flex items-center">
                                         <div class="overflow-hidden w-16 h-16 bg-gray-50 border-b border-gray-200">
                                             <img class="object-cover object-center w-full h-full hover:grow hover:shadow-md"
                                                 src="<?php echo e(Str::startsWith($product->picture_path, 'https://') ? $product->picture_path : asset('storage/' . $product->picture_path)); ?>"
                                                 alt="<?php echo e($product->name); ?>" loading="lazy">
                                         </div>
-                                        <input type="hidden" name="products[<?php echo e($pr); ?>][id]" id="id"
-                                            value="<?php echo e($product->id); ?>">
+                                        <input type="hidden" name="products[0][id]" id="id" value="<?php echo e($product->id); ?>">
                                         <div class="flex-grow pl-3">
                                             <h6 class="font-semibold uppercase text-gray-600"><?php echo e($product->name); ?></h6>
                                             <div class="flex gap-4">
@@ -240,7 +264,7 @@
                                                     </button>
                                                     <input type="number" id="input-qty"
                                                         class="w-12 bg-white p-0 focus:outline-none text-center font-semibold text-md outline-none"
-                                                        name="product_qty" value="1" min="1"
+                                                        name="products[0][qty]" value="1" min="1"
                                                         max="<?php echo e($product->quantity); ?>" />
                                                     <button type="button" onclick="increment(event)"
                                                         class="bg-white -ml-4 text-black hover:text-white hover:bg-black border border-black rounded-full flex justify-center items-center w-4 h-4 cursor-pointer outline-none">
@@ -264,7 +288,6 @@
                                             <input id="product-price-input" type="hidden" value="<?php echo e($product->price); ?>">
                                         </div>
                                     </div>
-                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                                 </div>
 
@@ -440,7 +463,7 @@
                                             src="<?php echo e(Str::startsWith($product->picture_path, 'https://') ? $product->picture_path : asset('storage/' . $product->picture_path)); ?>"
                                             alt="<?php echo e($product->name); ?>" loading="lazy">
                                     </div>
-                                    <input type="text" name="product_id" id="id" value="<?php echo e($product->id); ?>">
+                                    <input type="hidden" name="product_id" id="id" value="<?php echo e($product->id); ?>">
                                     <div class="flex-grow pl-3">
                                         <h6 class="font-semibold uppercase text-gray-600"><?php echo e($product->name); ?></h6>
                                         <div class="flex gap-4">
@@ -658,11 +681,14 @@
 
                 console.log(JSON.parse(xhr.responseText));
             } else {
-                iziToast.success({
-                    title: 'OK',
-                    message: xhr.statusText,
+
+                const errorResponse = JSON.parse(xhr.responseText);
+                iziToast.info({
+                    title: 'Error',
+                    message: errorResponse,
                 });
-                console.error('Error:', xhr.status, xhr.statusText);
+
+                console.error('Error:', xhr.status, errorMessage);
             }
         };
 
@@ -685,7 +711,11 @@
         zoomer.style.backgroundPosition = x + '% ' + y + '%';
     }
     </script>
+
+
     <?php $__env->stopPush(); ?>
+
+
 
  <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>

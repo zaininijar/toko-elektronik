@@ -18,7 +18,10 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $store_rek = array('REKENING' => ['account_name' => 'AHMAD ZAINI NIJAR', 'account_number' => '1310558032', 'bank_name' => 'BRI'], 'E-WALLET' => ['account_name' => 'AHMAD ZAINI NIJAR', 'account_number' => '+6282286947001', 'bank_name' => 'DANA']);
+        $orders = Order::where('user_id', Auth::user()->id)->with('payment', 'order_products.product')->orderBy('created_at', 'desc')->get();
+        // dd($orders[0]);
+        return view('customer.order', ['orders' => $orders, 'store_rek' => $store_rek]);
     }
 
     /**
@@ -43,7 +46,11 @@ class OrderController extends Controller
         $requestData = $request->all();
         $shippingCost = 12500;
 
+
         try {
+
+            DB::beginTransaction();
+
             // get total amount
             $subtotal_amount = 0;
             foreach($requestData['products'] as $product) {
@@ -73,18 +80,27 @@ class OrderController extends Controller
 
             // create order product
             foreach($requestData['products'] as $product) {
+                $product_decrement_qty = Product::find($product['id'])->reduceQuantity($product['qty']);
+                if (!$product_decrement_qty) {
+                    throw new \Exception('Failed to reduce product quantity.');
+                }
+
                 OrderProduct::create([
                     'product_id' => $product['id'],
                     'order_id' => $order->id,
-                    'qty' => $product['id'],
+                    'qty' => $product['qty'],
                     'subtotal_amount' => $subtotal_amount
                 ]);
             }
 
-            return redirect()->back()->with("Success");
+            // Commit the transaction if everything is successful
+            DB::commit();
+
+            return redirect()->back()->with("success", "Berhasil membuat pesanan.");
 
         } catch (\Throwable $th) {
-            dd($th->getMessage());
+            DB::rollBack();
+            return redirect()->back()->with('error', 'An unexpected error occurred. Please try again.');
         }
 
     }

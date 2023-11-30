@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\CutomerController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Customer\HomeController;
@@ -25,25 +27,21 @@ Route::get('/product/{id}', [CustomerProductController::class, 'show'])->name('c
 
 
 // customer
-Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
+Route::group(['middleware' => ['auth:sanctum', 'verified', 'role:customer']], function () {
     Route::post('order', [CustomerOrderController::class, 'store'])->name('customer.create-order');
-
+    Route::get('orders', [CustomerOrderController::class, 'index'])->name('customer.order');
+    Route::get('shopping-chart', [CustomerShoppingChart::class, 'index'])->name('customer.shopping-chart');
+    Route::delete('shopping-chart/{id}', [CustomerShoppingChart::class, 'destroy'])->name('customer.shopping-chart.destroy');
     // api
     Route::post('shopping-chart/{product}', [CustomerShoppingChart::class, 'store'])->name('customer.create-shopping-chart');
 });
 
 
 // admin
-Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum', 'verified']], function () {
-    Route::view('dashboard', 'dashboard')->name('dashboard');
+Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum', 'verified', 'role:admin']], function () {
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('customer', [CutomerController::class, 'index'])->name('customer');
     Route::resource('product', ProductController::class);
     Route::resource('order', OrderController::class);
-
-    Route::view('forms', 'forms')->name('forms');
-    Route::view('cards', 'cards')->name('cards');
-    Route::view('charts', 'charts')->name('charts');
-    Route::view('buttons', 'buttons')->name('buttons');
-    Route::view('modals', 'modals')->name('modals');
-    Route::view('tables', 'tables')->name('tables');
-    Route::view('calendar', 'calendar')->name('calendar');
+    Route::put('order/updatePayment/{payment}', [OrderController::class, 'updatePayment'])->name('order.updatePayment');
 });

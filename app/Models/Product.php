@@ -18,6 +18,18 @@ class Product extends Model
         'description'
     ];
 
+    public function reduceQuantity($quantityToReduce)
+    {
+        if ($this->quantity >= $quantityToReduce) {
+            $this->quantity -= $quantityToReduce;
+            $this->save();
+
+            return true;
+        }
+
+        return false;
+    }
+
     /**
      * Get the product_category that owns the Product
      *
@@ -36,5 +48,15 @@ class Product extends Model
     public function order_products()
     {
         return $this->hasMany(OrderProduct::class);
+    }
+
+    /**
+     * Get all of the shopping_charts for the Product
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function shopping_charts()
+    {
+        return $this->hasMany(ShoppingChart::class);
     }
 }

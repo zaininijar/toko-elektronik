@@ -17,12 +17,14 @@
 
             <!-- Current Profile Photo -->
             <div class="mt-2" x-show="! photoPreview">
-                <img src="{{ $this->user->profile_photo_url }}" alt="{{ $this->user->name }}" class="object-cover w-20 h-20 rounded-full">
+                <img src="{{ $this->user->profile_photo_url }}" alt="{{ $this->user->name }}"
+                    class="object-cover w-20 h-20 rounded-full">
             </div>
 
             <!-- New Profile Photo Preview -->
             <div class="mt-2" x-show="photoPreview">
-                <span class="block w-20 h-20 rounded-full" x-bind:style="'background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url(\'' + photoPreview + '\');'">
+                <span class="block w-20 h-20 rounded-full"
+                    x-bind:style="'background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url(\'' + photoPreview + '\');'">
                 </span>
             </div>
 
@@ -37,7 +39,8 @@
         <!-- Name -->
         <div class="col-span-6 sm:col-span-4">
             <x-label for="name" value="Name" />
-            <x-input id="name" type="text" class="block w-full mt-1" wire:model.defer="state.name" autocomplete="name" />
+            <x-input id="name" type="text" class="block w-full mt-1" wire:model.defer="state.name"
+                autocomplete="name" />
             <x-input-error for="name" class="mt-2" />
         </div>
 
@@ -55,7 +58,8 @@
         </x-action-message>
 
         <x-button>
-            {{ __('Save') }}
+            {{ __
+('Save') }}
         </x-button>
     </x-slot>
 </x-form-section>

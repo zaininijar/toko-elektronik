@@ -23,9 +23,6 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" defer></script>
-    <!-- <script src="<?php echo e(asset('js/charts-lines.js')); ?>" defer></script>
-    <script src="<?php echo e(asset('js/charts-pie.js')); ?>" defer></script>
-    <script src="<?php echo e(asset('js/charts-bars.js')); ?>" defer></script> -->
     <link href="<?php echo e(asset('plugin/izi-toast/css/iziToast.css')); ?>" rel="stylesheet" data-turbolinks-track="true" />
     <script defer src="<?php echo e(asset('plugin/izi-toast/js/iziToast.js')); ?>" data-turbolinks-track="true"></script>
     <script defer src="<?php echo e(asset('plugin/jquery/jquery.js')); ?>" data-turbolinks-track="true"></script>

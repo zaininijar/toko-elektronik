@@ -14,7 +14,8 @@ class Order extends Model
         'recipient_name',
         'phone_number',
         'shipped_address',
-        'shipped_cost'
+        'shipped_cost',
+        'status'
     ];
 
     /**
@@ -35,6 +36,16 @@ class Order extends Model
     public function order_products()
     {
         return $this->hasMany(OrderProduct::class);
+    }
+
+    /**
+     * Get the payment that owns the Order
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function payment()
+    {
+        return $this->belongsTo(Payment::class);
     }
 
 }

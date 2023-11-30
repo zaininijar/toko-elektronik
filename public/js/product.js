@@ -1,4 +1,4 @@
-const BASE_URL = 'http://127.0.0.1:8000/product/'
+const BASE_URL = 'http://127.0.0.1:8000/admin/product/'
 const ASSET_URL = 'http://127.0.0.1:8000/storage/'
 
 function deleteRequest(id) {

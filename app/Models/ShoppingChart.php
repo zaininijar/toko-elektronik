@@ -13,4 +13,14 @@ class ShoppingChart extends Model
         'product_id',
         'qty'
     ];
+
+    /**
+     * Get the product that owns the ShoppingChart
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }

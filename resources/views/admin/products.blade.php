@@ -2,25 +2,25 @@
     <div x-data="{ isModalOpen: false }">
         <div class="container grid px-6 mx-auto">
             @if ($errors->any())
-                <div class="bg-red-300 px-4 py-2 rounded-md mt-8 text-red-600">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li class="list-disc list-inside">{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
+            <div class="bg-red-300 px-4 py-2 rounded-md mt-8 text-red-600">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li class="list-disc list-inside">{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
             @endif
 
             @if (session('success'))
-                <div class="bg-green-300 px-4 py-2 rounded-md mt-8 text-green-600">
-                    <div class="list-disc list-inside">{{ session('success') }}</div>
-                </div>
+            <div class="bg-green-300 px-4 py-2 rounded-md mt-8 text-green-600">
+                <div class="list-disc list-inside">{{ session('success') }}</div>
+            </div>
             @endif
 
             @if (session('error'))
-                <div class="bg-red-300 px-4 py-2 rounded-md mt-8 text-red-600">
-                    <div class="list-disc list-inside">{{ session('error') }}</div>
-                </div>
+            <div class="bg-red-300 px-4 py-2 rounded-md mt-8 text-red-600">
+                <div class="list-disc list-inside">{{ session('error') }}</div>
+            </div>
             @endif
 
             <div class="flex w-full justify-between items-center">
@@ -57,82 +57,81 @@
                         </thead>
                         <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                             @foreach ($products as $key => $product)
-                                <tr class="text-gray-700 dark:text-gray-400" id="product-{{ $product->id }}">
-                                    <td class="px-4 py-3 text-sm">
-                                        {{ $key + 1 }}
-                                    </td>
-                                    <td class="px-4 py-3">
-                                        <div class="flex items-center text-sm">
-                                            <div>
-                                                <p class="font-semibold">{{ $product->name }}</p>
-                                                <p class="text-xs text-gray-600 dark:text-gray-400">
-                                                    10x Sell
-                                                </p>
-                                                <p class="text-xs text-gray-600 dark:text-gray-400">
-                                                    {{ $product->product_category->category_name }}
-                                                </p>
+                            <tr class="text-gray-700 dark:text-gray-400" id="product-{{ $product->id }}">
+                                <td class="px-4 py-3 text-sm">
+                                    {{ $key + 1 }}
+                                </td>
+                                <td class="px-4 py-3">
+                                    <div class="flex items-center text-sm">
+                                        <div>
+                                            <p class="font-semibold">{{ $product->name }}</p>
+                                            <p class="text-xs text-gray-600 dark:text-gray-400">
+                                                10x Sell
+                                            </p>
+                                            <p class="text-xs text-gray-600 dark:text-gray-400">
+                                                {{ $product->product_category->category_name }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-4 py-3 text-sm">
+                                    {{ 'Rp ' . number_format($product->price, 2, ',', '.') }}
+                                </td>
+                                <td class="px-4 py-3 text-sm">
+                                    {{ $product->quantity . ' unit' }}
+                                </td>
+                                <td class="px-4 py-3 text-sm">
+                                    <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                                        <img class="object-cover w-full h-full rounded-full"
+                                            src="{{ Str::startsWith($product->picture_path, 'https://') ? $product->picture_path : asset('storage/' . $product->picture_path) }}"
+                                            alt="{{ $product->name }}" alt="" loading="lazy" />
+                                        <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-4 py-3 text-xs">
+                                    <span
+                                        class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+                                        {{ $product->spesification }}
+                                    </span>
+                                </td>
+                                <td class="px-4 py-3 text-sm">
+                                    <summary>
+                                        <details>
+                                            <div class="whitespace-pre-line">
+                                                {{ $product->description }}
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-4 py-3 text-sm">
-                                        {{ 'Rp ' . number_format($product->price, 2, ',', '.') }}
-                                    </td>
-                                    <td class="px-4 py-3 text-sm">
-                                        {{ $product->quantity . ' unit' }}
-                                    </td>
-                                    <td class="px-4 py-3 text-sm">
-                                        <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                                            <img class="object-cover w-full h-full rounded-full"
-                                                src="{{ Str::startsWith($product->picture_path, 'https://') ? $product->picture_path : asset('storage/' . $product->picture_path) }}"
-                                                alt="{{ $product->name }}" alt="" loading="lazy" />
-                                            <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true">
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-4 py-3 text-xs">
-                                        <span
-                                            class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
-                                            {{ $product->spesification }}
-                                        </span>
-                                    </td>
-                                    <td class="px-4 py-3 text-sm">
-                                        <summary>
-                                            <details>
-                                                <div class="whitespace-pre-line">
-                                                    {{ $product->description }}
-                                                </div>
-                                            </details>
-                                        </summary>
-                                    </td>
-                                    <td class="px-4 py-3 text-sm">
-                                        {{ $product->created_at }}
-                                    </td>
-                                    <td class="px-4 py-3">
-                                        <div class="flex items-center space-x-4 text-sm">
-                                            <button @click="isModalOpen = true"
-                                                onclick="showModalEdit({{ $product->id }})"
-                                                class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                                                aria-label="Edit">
-                                                <svg class="w-5 h-5" aria-hidden="true" fill="currentColor"
-                                                    viewBox="0 0 20 20">
-                                                    <path
-                                                        d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z">
-                                                    </path>
-                                                </svg>
-                                            </button>
-                                            <button onclick="showToast({{ $product->id }})"
-                                                class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                                                aria-label="Delete">
-                                                <svg class="w-5 h-5" aria-hidden="true" fill="currentColor"
-                                                    viewBox="0 0 20 20">
-                                                    <path fill-rule="evenodd"
-                                                        d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                                                        clip-rule="evenodd"></path>
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
+                                        </details>
+                                    </summary>
+                                </td>
+                                <td class="px-4 py-3 text-sm">
+                                    {{ $product->created_at }}
+                                </td>
+                                <td class="px-4 py-3">
+                                    <div class="flex items-center space-x-4 text-sm">
+                                        <button @click="isModalOpen = true" onclick="showModalEdit({{ $product->id }})"
+                                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                            aria-label="Edit">
+                                            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor"
+                                                viewBox="0 0 20 20">
+                                                <path
+                                                    d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z">
+                                                </path>
+                                            </svg>
+                                        </button>
+                                        <button onclick="showToast({{ $product->id }})"
+                                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                            aria-label="Delete">
+                                            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor"
+                                                viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd"
+                                                    d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                                                    clip-rule="evenodd"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
                             @endforeach
                         </tbody>
                     </table>
@@ -228,8 +227,7 @@
                     <button
                         class="inline-flex items-center justify-center w-6 h-6 text-gray-400 transition-colors duration-150 rounded dark:hover:text-gray-200 hover: hover:text-gray-700"
                         aria-label="close" @click="isModalOpen = false">
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" role="img"
-                            aria-hidden="true">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" role="img" aria-hidden="true">
                             <path
                                 d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
                                 clip-rule="evenodd" fill-rule="evenodd"></path>
@@ -307,7 +305,7 @@
     </div>
 
     @push('scripts')
-        <script defer src="http://127.0.0.1:8000/js/product.js" data-turbolinks-track="true"></script>
+    <script defer src="{{ asset('js/product.js') }}" data-turbolinks-track="true"></script>
     @endpush
 
 </x-app-layout>

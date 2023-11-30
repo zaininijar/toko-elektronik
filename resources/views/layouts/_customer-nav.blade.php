@@ -24,14 +24,14 @@
                 <ul class="md:flex items-center justify-between text-base text-gray-700 pt-4 md:pt-0">
                     <li>
                         <a class="inline-block no-underline hover:text-black hover:underline py-2 px-4"
-                            href="{{ route('customer.product') }}">
-                            Shop
+                            href="{{ route('home') }}">
+                            Home
                         </a>
                     </li>
                     <li>
                         <a class="inline-block no-underline hover:text-black hover:underline py-2 px-4"
                             href="{{ route('customer.product') }}">
-                            About
+                            Products
                         </a>
                     </li>
                 </ul>
@@ -49,66 +49,78 @@
             </a>
         </div>
 
-        <div class="order-2 md:order-3 flex items-center" id="nav-content">
+        <div class="order-2 md:order-3 flex items-center" id="nav-content" s>
 
             @if (Route::has('login'))
             @auth
-            <a class="flex no-underline hover:text-black" href="#">
-                <svg class="fill-current hover:text-black" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                    viewBox="0 0 24 24">
-                    <circle fill="none" cx="12" cy="7" r="3" />
-                    <path
-                        d="M12 2C9.243 2 7 4.243 7 7s2.243 5 5 5 5-2.243 5-5S14.757 2 12 2zM12 10c-1.654 0-3-1.346-3-3s1.346-3 3-3 3 1.346 3 3S13.654 10 12 10zM21 21v-1c0-3.859-3.141-7-7-7h-4c-3.86 0-7 3.141-7 7v1h2v-1c0-2.757 2.243-5 5-5h4c2.757 0 5 2.243 5 5v1H21z" />
-                </svg>
-                <div class="relative">
-                    <button class="align-middle rounded-full focus:shadow-outline-purple focus:outline-none"
-                        @click="toggleProfileMenu" @keydown.escape="closeProfileMenu" aria-label="Account"
-                        aria-haspopup="true">
-                        <img class="object-cover w-8 h-8 rounded-full" src="{{ Auth::user()->profile_photo_url }}"
-                            alt="{{ Auth::user()->name }}" aria-hidden="true" />
-                    </button>
-                    <template x-if="isProfileMenuOpen">
-                        <ul x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
-                            x-transition:leave-end="opacity-0" @click.away="closeProfileMenu"
-                            @keydown.escape="closeProfileMenu"
-                            class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:border-gray-700 dark:text-gray-300 dark:bg-gray-700"
-                            aria-label="submenu">
-                            <li class="flex">
-                                <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                                    href="/user/profile">
-                                    <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none" stroke-linecap="round"
-                                        stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                                        stroke="currentColor">
-                                        <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z">
-                                        </path>
-                                    </svg>
-                                    <span>{{ __('Profile') }}</span>
-                                </a>
-                            </li>
-                            <div class="border-t border-gray-100"></div>
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <li class="flex">
-                                    <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                                        href="{{ route('logout') }}"
-                                        onclick="event.preventDefault(); this.closest('form').submit();">
-                                        <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none" stroke-linecap="round"
-                                            stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                                            stroke="currentColor">
-                                            <path
-                                                d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1">
-                                            </path>
-                                        </svg>
-                                        <span>{{ __('Logout') }}</span>
-                                    </a>
-                                </li>
-                            </form>
-                        </ul>
-                    </template>
-                </div>
-            </a>
+            <div x-data="{isOpenMenu: false}" class="dropdown-menu">
+                <button @click="isOpenMenu = !isOpenMenu"
+                    class="align-middle rounded-full focus:shadow-outline-purple focus:outline-none"
+                    @keydown.escape="isOpenMenu" aria-label="Account" @click.away="isOpenMenu = false">
+                    <img class="object-cover w-8 h-8 rounded-full" src="{{ Auth::user()->profile_photo_url }}"
+                        alt="{{ Auth::user()->name }}" aria-hidden="true" />
+                </button>
 
-            <a class="pl-3 inline-block no-underline hover:text-black" href="#">
+                <div x-show="isOpenMenu" x-transition:enter="transition ease-out duration-150"
+                    x-transition:enter-start="opacity-0 transform translate-y-1/2" x-transition:enter-end="opacity-100"
+                    x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
+                    x-transition:leave-end="opacity-0  transform translate-y-1/2"
+                    class="bg-white rounded-lg shadow-xl px-4 mt-6 -ml-14 absolute">
+
+                    <svg class="absolute bottom-full right-4" width="30" height="20" viewBox="0 0 30 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <polygon points="15, 0 30, 20 0, 20" fill="#fff" />
+                    </svg>
+
+                    <div class="py-3 flex items-center w-full hover:bg-gray-50">
+                        <a href="{{ route('customer.order') }}" class="flex-1">
+                            <div class="text-gray-400 text-sm font-semibold">Pesanan</div>
+                        </a>
+                        <div>
+                            <svg class="w-6 h-6" width="40" height="20" viewBox="0 0 40 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <line x1="30" y1="2" x2="40" y2="10" stroke="#9CA3AF" />
+                                <line x1="30" y1="18" x2="40" y2="10" stroke="#9CA3AF" />
+                                <line x1="20" y1="10" x2="40" y2="10" stroke="#9CA3AF" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="py-3 flex items-center w-full hover:bg-gray-50">
+                        <a href="{{ route('profile.show') }}" class="flex-1">
+                            <div class="text-gray-400 text-sm font-semibold">Profile</div>
+                        </a>
+                        <div>
+                            <svg class="w-6 h-6" width="40" height="20" viewBox="0 0 40 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <line x1="30" y1="2" x2="40" y2="10" stroke="#9CA3AF" />
+                                <line x1="30" y1="18" x2="40" y2="10" stroke="#9CA3AF" />
+                                <line x1="20" y1="10" x2="40" y2="10" stroke="#9CA3AF" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="py-0 flex items-center w-full border-t">
+                        <form class="w-full" method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <a class="flex items-center w-full py-3 text-sm font-semibold text-gray-400  transition-colors duration-150 hover:bg-gray-50"
+                                href="{{ route('logout') }}"
+                                onclick="event.preventDefault(); this.closest('form').submit();">
+                                <span class="flex-1">{{ __('Logout') }}</span>
+                                <div>
+                                    <svg class="w-6 h-6" width="40" height="20" viewBox="0 0 40 20"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <line x1="30" y1="2" x2="40" y2="10" stroke="#9CA3AF" />
+                                        <line x1="30" y1="18" x2="40" y2="10" stroke="#9CA3AF" />
+                                        <line x1="20" y1="10" x2="40" y2="10" stroke="#9CA3AF" />
+                                    </svg>
+                                </div>
+                            </a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <a class="pl-3 inline-block no-underline hover:text-black" href="{{ route('customer.shopping-chart') }}">
                 <svg class="fill-current hover:text-black" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                     viewBox="0 0 24 24">
                     <path
@@ -117,13 +129,61 @@
                     <circle cx="17.5" cy="18.5" r="1.5" />
                 </svg>
             </a>
-            <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700 underline">Dashboard</a>
-            @else
-            <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Login</a>
 
-            @if (Route::has('register'))
-            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">Register</a>
-            @endif
+            @else
+            <div x-data="{isOpenMenu: false}" class="dropdown-menu">
+                <button @click="isOpenMenu = !isOpenMenu"
+                    class="align-middle rounded-full focus:shadow-outline-purple focus:outline-none"
+                    @keydown.escape="isOpenMenu" aria-label="Account" @click.away="isOpenMenu = false">
+                    <div class="flex no-underline hover:text-black">
+                        <svg class="fill-current hover:text-black" xmlns="http://www.w3.org/2000/svg" width="24"
+                            height="24" viewBox="0 0 24 24">
+                            <circle fill="none" cx="12" cy="7" r="3" />
+                            <path
+                                d="M12 2C9.243 2 7 4.243 7 7s2.243 5 5 5 5-2.243 5-5S14.757 2 12 2zM12 10c-1.654 0-3-1.346-3-3s1.346-3 3-3 3 1.346 3 3S13.654 10 12 10zM21 21v-1c0-3.859-3.141-7-7-7h-4c-3.86 0-7 3.141-7 7v1h2v-1c0-2.757 2.243-5 5-5h4c2.757 0 5 2.243 5 5v1H21z" />
+                        </svg>
+                        </>
+                </button>
+
+                <div x-show="isOpenMenu" x-transition:enter="transition ease-out duration-150"
+                    x-transition:enter-start="opacity-0 transform translate-y-1/2" x-transition:enter-end="opacity-100"
+                    x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
+                    x-transition:leave-end="opacity-0  transform translate-y-1/2"
+                    class="bg-white rounded-lg shadow-xl px-4 mt-6 -ml-14 absolute">
+
+                    <svg class="absolute bottom-full right-4" width="30" height="20" viewBox="0 0 30 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <polygon points="15, 0 30, 20 0, 20" fill="#fff" />
+                    </svg>
+
+                    <div class="py-3 flex items-center w-full hover:bg-gray-50">
+                        <a href="{{ route('login') }}" class="flex-1">
+                            <div class="text-gray-400 text-sm font-semibold">Login</div>
+                        </a>
+                        <div>
+                            <svg class="w-6 h-6" width="40" height="20" viewBox="0 0 40 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <line x1="30" y1="2" x2="40" y2="10" stroke="#9CA3AF" />
+                                <line x1="30" y1="18" x2="40" y2="10" stroke="#9CA3AF" />
+                                <line x1="20" y1="10" x2="40" y2="10" stroke="#9CA3AF" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="py-3 flex items-center w-full hover:bg-gray-50">
+                        <a href="{{ route('register') }}" class="flex-1">
+                            <div class="text-gray-400 text-sm font-semibold">Register</div>
+                        </a>
+                        <div>
+                            <svg class="w-6 h-6" width="40" height="20" viewBox="0 0 40 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <line x1="30" y1="2" x2="40" y2="10" stroke="#9CA3AF" />
+                                <line x1="30" y1="18" x2="40" y2="10" stroke="#9CA3AF" />
+                                <line x1="20" y1="10" x2="40" y2="10" stroke="#9CA3AF" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
             @endif
             @endif
 
